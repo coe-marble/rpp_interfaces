@@ -1,0 +1,58 @@
+{
+    "Library": "rpp_interfaces",
+    "Plugins": [],
+    "PluginTypes": [
+        {
+            "Path": "plugin_types/common/constants.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/common/descriptions.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/common/execution.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/control/constraints.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/control/control_law.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/estimation/estimator.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/hardware/constants.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/hardware/hardware_io.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/model/constants.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/model/model.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/reference/constants.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/reference/reference.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/state/state_description_provider.capnp",
+            "Type": "file"
+        }
+    ]
+}
