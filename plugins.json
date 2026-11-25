@@ -51,7 +51,7 @@
             "Type": "file"
         },
         {
-            "Path": "plugin_types/state/state_description_provider.capnp",
+            "Path": "plugin_types/state/state_provider.capnp",
             "Type": "file"
         }
     ]

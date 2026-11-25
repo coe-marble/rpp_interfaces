@@ -59,6 +59,14 @@ a separate compatibility migration
 before their definitions can be relocated. Keep one canonical definition of each
 type rather than copying it into this repository.
 
+## Live layout inspector
+
+Use Vizanti's **Layout Inspector** widget to inspect multiple
+`marble_control_msgs/msg/ControlLayout` topics and their latest state/command values.
+The widget uses Vizanti's existing adapter connection; it needs no separate Python
+node or HTTP server. See Vizanti's plugin documentation for configuration and the
+limits of the published routing information.
+
 ## Imports and native usage
 
 The logical import root `rpp_interfaces` maps to this library's `plugin_types`

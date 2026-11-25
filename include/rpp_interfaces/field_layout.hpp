@@ -1,5 +1,6 @@
 #pragma once
 
+#include <rpp_cpp/list_definitions.hpp>
 #include <rpp_schema/rpp_interfaces/FieldListDesc.hpp>
 #include <capnp_gen/rpp_interfaces/common/constants.capnp.h>
 

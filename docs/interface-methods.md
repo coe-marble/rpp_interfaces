@@ -65,7 +65,7 @@ submission and reference sampling use flat numeric arrays.
 
 Read after configuration to prepare measured-state inputs, goal updates, and
 reference outputs. `state` describes the measured-state row. `targetMask` selects
-its goal fields. `reference` is a flat `FieldListDesc` describing one generated
+goal fields from `reference`, independently of measured inputs. `reference` is a flat `FieldListDesc` describing one generated
 sample. Component configuration selects the fields and their physical meaning.
 
 Use `features` to choose supported application goal operations before activation.
@@ -96,8 +96,8 @@ Accepted goals and component activation state survive successful rebinding.
 
 ### setPoint
 
-Call with numeric updates paused to stage one `state` in the declared state layout.
-`targetMask` selects goal fields. `updateMask` follows scalar state order and
+Call with numeric updates paused to stage one desired row in the declared reference layout.
+`targetMask` selects reference fields. `updateMask` follows scalar reference order and
 preserves unselected curves. Quaternion coefficients update together. An empty
 update mask selects all target scalars. The generator determines the resulting
 motion profile. Successful staging acknowledges acceptance of the target.
@@ -105,7 +105,7 @@ motion profile. Successful staging acknowledges acceptance of the target.
 ### setPath
 
 Call with numeric updates paused to stage nonempty waypoint states, flattened
-in waypoint-major order using the declared state layout. `updateMask` selects
+in waypoint-major order using the declared reference layout. `updateMask` selects
 the same scalars in every waypoint. Speed, interpolation, and path progression
 belong to the generator's parameters and algorithm. Rejection preserves the old target.
 
