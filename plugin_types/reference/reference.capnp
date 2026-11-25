@@ -5,8 +5,8 @@ using D = import "rpp_interfaces/common/descriptions.capnp";
 using Rt = import "rpp_interfaces/common/execution.capnp";
 
 struct ReferenceGeneratorDesc @0xf302b193db5e4af7 {
-  state @0 :D.FieldListDesc;
-  targetMask @1 :List(Bool); # One flag per state.fields entry; selected fields are tracked as goals.
+  state @0 :D.FieldListDesc; # Measured inputs; independent of the desired reference layout.
+  targetMask @1 :List(Bool); # One flag per reference.fields entry; selected fields are goals.
   reference @2 :D.FieldListDesc; # Produced reference fields for one sample.
   features @3 :UInt8; # reference/constants.capnp: generator* bitmask
   # The manager connects these fields to consumers using configured field routes.
@@ -18,7 +18,7 @@ struct ReferenceMonitorDesc @0xd127887789b20fd5 {
 }
 
 interface ReferenceGenerator $Anot.plugin("ReferenceGenerator") {
-  # Declare the shared current/desired-state layout, goal mask and reference outputs.
+  # Declare measured inputs, reference outputs and which output fields accept goals.
   getDesc @0 () -> (desc :ReferenceGeneratorDesc);
   # R is the flattened desc.reference width; H is the bound horizonLength.
   # With H = 0, return R current values at timeNs.
@@ -36,13 +36,13 @@ interface ReferenceGenerator $Anot.plugin("ReferenceGenerator") {
   # The manager prepares the field and time routes for each consumer.
   bind @3 (horizonOffsetsNs :List(UInt64), horizonLength :UInt32 = 0)
       -> (status :UInt8); # common/constants.capnp: code*
-  # Stage one desired state in desc.state order; targetMask selects the goal fields.
-  # Empty updateMask updates every target scalar. Otherwise it follows desc.state.
+  # Stage one desired reference in desc.reference order; targetMask selects goal fields.
+  # Empty updateMask updates every target scalar. Otherwise it follows desc.reference.
   # False entries retain their existing point/path/trajectory and sampling origin.
   setPoint @4 (state :List(Float64), updateMask :List(Bool)) -> (status :UInt8); # common/constants.capnp: code*
-  # Stage waypoint states flattened row-major; each row has desc.state's stored width.
+  # Stage waypoints flattened row-major; each row has desc.reference's stored width.
   setPath @5 (states :List(Float64), updateMask :List(Bool)) -> (status :UInt8); # common/constants.capnp: code*
-  # Stage one desired-state row per relative arrival time, starting at zero.
+  # Stage one desired-reference row per relative arrival time, starting at zero.
   setTrajectory @6 (states :List(Float64), timesNs :List(UInt64), updateMask :List(Bool))
       -> (status :UInt8); # common/constants.capnp: code*
 }
