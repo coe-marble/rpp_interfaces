@@ -12,19 +12,16 @@ struct ReferenceGeneratorDesc @0xf302b193db5e4af7 {
   # The manager connects these fields to consumers using configured field routes.
 }
 
-struct ReferenceMonitorDesc @0xd127887789b20fd5 {
-  state @0 :D.FieldListDesc;
-  reference @1 :D.FieldListDesc; # Required reference fields for one sample.
-}
-
 interface ReferenceGenerator $Anot.plugin("ReferenceGenerator") {
   # Declare measured inputs, reference outputs and which output fields accept goals.
   getDesc @0 () -> (desc :ReferenceGeneratorDesc);
   # R is the flattened desc.reference width; H is the bound horizonLength.
   # With H = 0, return R current values at timeNs.
   # Otherwise return R * H values in reference-major order: index r * H + h.
+  # The generator supplies the bound horizon. Mission monitors evaluate
+  # continuation; one selected monitor also evaluates measured arrival.
   sample @1 (state :List(Float64), timeNs :UInt64)
-      -> (reference :List(Float64), finished :Bool, status :UInt8) $Rt.realtime; # common/constants.capnp: code*
+      -> (reference :List(Float64), status :UInt8) $Rt.realtime; # common/constants.capnp: code*
   # Clear the target at the next sample boundary; this does not stop hardware.
   cancel @2 () -> (status :UInt8); # common/constants.capnp: code*
   # Bind on the management thread with sample calls paused. Commit the complete
@@ -45,25 +42,4 @@ interface ReferenceGenerator $Anot.plugin("ReferenceGenerator") {
   # Stage one desired-reference row per relative arrival time, starting at zero.
   setTrajectory @6 (states :List(Float64), timesNs :List(UInt64), updateMask :List(Bool))
       -> (status :UInt8); # common/constants.capnp: code*
-}
-
-interface PlanarReferenceGenerator
-    extends(ReferenceGenerator)
-    $Anot.plugin("PlanarReferenceGenerator") {}
-interface SpatialReferenceGenerator
-    extends(ReferenceGenerator)
-    $Anot.plugin("SpatialReferenceGenerator") {}
-interface GenericReferenceGenerator
-    extends(ReferenceGenerator)
-    $Anot.plugin("GenericReferenceGenerator") {}
-
-interface ReferenceMonitor $Anot.plugin("ReferenceMonitor") {
-  # Declare measured-state and reference inputs; connections belong to the manager.
-  getDesc @0 () -> (desc :ReferenceMonitorDesc);
-  # Read current reference values in desc.reference order.
-  # finished means all contributing generators finished.
-  check @1 (state :List(Float64), reference :List(Float64),
-            finished :Bool, timeNs :UInt64)
-      -> (progress :UInt8, # reference/constants.capnp: progress*
-          status :UInt8) $Rt.realtime; # common/constants.capnp: code*
 }

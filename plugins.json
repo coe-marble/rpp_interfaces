@@ -15,6 +15,14 @@
             "Type": "file"
         },
         {
+            "Path": "plugin_types/reference/constants.capnp",
+            "Type": "file"
+        },
+        {
+            "Path": "plugin_types/reference/reference.capnp",
+            "Type": "file"
+        },
+        {
             "Path": "plugin_types/control/constraints.capnp",
             "Type": "file"
         },
@@ -43,11 +51,7 @@
             "Type": "file"
         },
         {
-            "Path": "plugin_types/reference/constants.capnp",
-            "Type": "file"
-        },
-        {
-            "Path": "plugin_types/reference/reference.capnp",
+            "Path": "plugin_types/mission/mission_monitor.capnp",
             "Type": "file"
         },
         {

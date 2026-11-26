@@ -30,6 +30,7 @@ if(BUILD_TESTING)
   ament_add_gtest(test_control_law_layout tests/control_law_layout_tests.cpp)
   target_link_libraries(test_control_law_layout rpp_interfaces)
   ament_add_pytest_test(test_fields tests/test_fields.py)
+  ament_add_pytest_test(test_parameter_helpers tests/test_parameter_helpers.py)
 endif()
 
 ament_package(CONFIG_EXTRAS_POST cmake/generated-headers.cmake)

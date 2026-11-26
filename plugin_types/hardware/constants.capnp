@@ -1,6 +1,6 @@
 @0x92ae5ddf70cb62dc;
 
-# API contract: ../../docs/component-boundaries.md
+# API contract: https://github.com/coe-marble/rpp_docs/blob/develop/docs/interfaces/component-boundaries.md
 
 const stopInvalid :UInt8 = 0;
 const stopConfigured :UInt8 = 1;

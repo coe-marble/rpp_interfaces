@@ -82,6 +82,34 @@ def get_navigation_reference(
     return reference
 
 
+def get_velocity_reference(
+    *,
+    resource: str,
+    dimensions: int = 2,
+    frame_id: str = "base_link",
+    inner_controller: str | None = None,
+) -> dict:
+    """Describe body velocity targets and optional cascade selectors, without pose."""
+    if dimensions not in (2, 3) or not resource:
+        raise ValueError("Velocity references require a resource and two or three dimensions")
+    angular_size = 1 if dimensions == 2 else 3
+    fields = [
+        Field(f"{resource}.linearVelocity", _EUCLIDEAN, _LINEAR_VELOCITY, dimensions,
+              frame_id, frame_id, resource),
+        Field(f"{resource}.angularVelocity", _EUCLIDEAN, _ANGULAR_VELOCITY, angular_size,
+              frame_id, frame_id, resource),
+    ]
+    if inner_controller is not None:
+        if not inner_controller:
+            raise ValueError("The inner controller name must be nonempty")
+        fields.extend([
+            Field(f"{inner_controller}.{field.name}.selection", _EUCLIDEAN, _NORMALIZED,
+                  field.size, frame_id, frame_id, resource)
+            for field in fields
+        ])
+    return {"fields": [asdict(field) for field in fields]}
+
+
 def get_wrench_reference(
     *,
     resource: str,

@@ -1,11 +1,12 @@
 @0x8871545d9f17e9df;
 
-# API contract: ../../docs/shared-bind-and-runtime.md
+# API contract: https://github.com/coe-marble/rpp_docs/blob/develop/docs/interfaces/shared-bind-and-runtime.md
 
 const contractVersion :UInt8 = 1;
 
-const codeInvalid :UInt8 = 0;
-const codeOk :UInt8 = 1;
+# Zero denotes successful evaluation across all interfaces.
+const codeOk :UInt8 = 0;
+const codeInvalid :UInt8 = 1;
 const codeLimited :UInt8 = 2;
 const codeNotReady :UInt8 = 3;
 const codeRejected :UInt8 = 4;

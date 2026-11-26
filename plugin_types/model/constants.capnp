@@ -1,6 +1,6 @@
 @0x97e3db07ab930cfa;
 
-# API contract: ../../docs/component-boundaries.md
+# API contract: https://github.com/coe-marble/rpp_docs/blob/develop/docs/interfaces/component-boundaries.md
 
 const modelPredict :UInt8 = 1;
 const modelLinearize :UInt8 = 2;
